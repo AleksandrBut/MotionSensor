@@ -24,4 +24,9 @@ public class VisitServiceImpl implements VisitService {
     public List<Visit> getAllVisits() {
         return (List<Visit>) visitRepository.findAll();
     }
+
+    @Override
+    public void deleteAllVisits() {
+        visitRepository.deleteAll();
+    }
 }

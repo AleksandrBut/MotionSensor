@@ -25,4 +25,9 @@ public class EventController {
         visitService.prepareDataBaseForTest();
         return visitService.getAllVisits().toString();
     }
+
+    @RequestMapping("delete-all")
+    public void deleteAllVisits() {
+        visitService.deleteAllVisits();
+    }
 }

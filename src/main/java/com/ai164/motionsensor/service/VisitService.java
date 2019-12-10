@@ -8,4 +8,6 @@ public interface VisitService {
     void prepareDataBaseForTest();
 
     List<Visit> getAllVisits();
+
+    void deleteAllVisits();
 }
