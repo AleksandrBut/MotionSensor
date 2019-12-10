@@ -1,6 +1,7 @@
 package com.ai164.motionsensor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,6 @@ public class EventController {
         System.out.println("time.getDayOfMonth() = " + time.getDayOfMonth());
         System.out.println("time.getHour() = " + time.getHour());
         System.out.println("time.getMinute() = " + time.getMinute());
-        System.out.println(dataSource.getConnection().getSchema());
+        System.out.println(dataSource.getConnection().getCatalog());
     }
 }
