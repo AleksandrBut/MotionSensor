@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @RestController
 public class EventController {
+
     @RequestMapping("/")
     public void event() {
         LocalDateTime time = LocalDateTime.now();
