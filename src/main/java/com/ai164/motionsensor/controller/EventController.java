@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @RestController
 public class EventController {
@@ -15,7 +16,7 @@ public class EventController {
 
     @RequestMapping("/")
     public String event() {
-        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time = LocalDateTime.now(ZoneId.of("EET"));
         System.out.println("time.getYear() = " + time.getYear());
         System.out.println("time.getMonth() = " + time.getMonthValue());
         System.out.println("time.getDayOfMonth() = " + time.getDayOfMonth());
