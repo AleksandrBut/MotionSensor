@@ -15,9 +15,6 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public void prepareDataBaseForTest() {
-        visitRepository.save(new Visit(2019, 12, 10, 20));
-        visitRepository.save(new Visit(2019, 11, 7, 3));
-        visitRepository.save(new Visit(2019, 10, 5, 24));
     }
 
     @Override

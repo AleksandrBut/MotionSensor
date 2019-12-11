@@ -17,15 +17,17 @@ public class Visit {
     private int month;
     private int day;
     private int hour;
+    private int visitCounter;
 
     public Visit() {
     }
 
-    public Visit(int year, int month, int day, int hour) {
+    public Visit(int year, int month, int day, int hour, int visitCounter) {
         this.year = year;
         this.month = month;
         this.day = day;
         this.hour = hour;
+        this.visitCounter = visitCounter;
     }
 
     public Long getId() {
@@ -68,6 +70,14 @@ public class Visit {
         this.hour = hour;
     }
 
+    public int getVisitCounter() {
+        return visitCounter;
+    }
+
+    public void setVisitCounter(int visitCounter) {
+        this.visitCounter = visitCounter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,22 +87,24 @@ public class Visit {
                 month == visit.month &&
                 day == visit.day &&
                 hour == visit.hour &&
+                visitCounter == visit.visitCounter &&
                 Objects.equals(id, visit.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, year, month, day, hour);
+        return Objects.hash(id, year, month, day, hour, visitCounter);
     }
 
     @Override
     public String toString() {
-        return "\nVisit{" +
+        return "Visit{" +
                 "id=" + id +
                 ", year=" + year +
                 ", month=" + month +
                 ", day=" + day +
                 ", hour=" + hour +
+                ", visitCounter=" + visitCounter +
                 '}';
     }
 }
