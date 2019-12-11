@@ -20,6 +20,11 @@ public class Visit {
     public Visit() {
     }
 
+    public Visit(LocalDateTime time, int visitCounter) {
+        this.time = time;
+        this.visitCounter = visitCounter;
+    }
+
     public Long getId() {
         return id;
     }

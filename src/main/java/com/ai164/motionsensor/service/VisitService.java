@@ -10,4 +10,6 @@ public interface VisitService {
     List<Visit> getAllVisits();
 
     void deleteAllVisits();
+
+    List<Visit> getVisitsPerHourForDay(String dateTime);
 }

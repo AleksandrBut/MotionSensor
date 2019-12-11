@@ -1,16 +1,12 @@
 package com.ai164.motionsensor.controller;
 
 import com.ai164.motionsensor.dto.VisitCounterRequestItem;
+import com.ai164.motionsensor.model.Visit;
 import com.ai164.motionsensor.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 public class VisitController {
@@ -18,23 +14,12 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
-    /*
-     * /day - get visits per hour
-     */
-    @RequestMapping("/")
-    public String event() {
-        LocalDateTime time = LocalDateTime.now(ZoneId.of("EET"));
-
-        LocalDateTime localDateTime = LocalDateTime.parse("2019/03/18 13", DateTimeFormatter.ofPattern("yyyy/MM/dd HH"));
-
-        System.out.println("time.getYear() = " + localDateTime.getYear());
-        System.out.println("time.getMonth() = " + localDateTime.getMonthValue());
-        System.out.println("time.getDayOfMonth() = " + localDateTime.getDayOfMonth());
-        System.out.println("time.getHour() = " + localDateTime.getHour());
-        System.out.println("time.getMinute() = " + localDateTime.getMinute());
-
-        visitService.prepareDataBaseForTest();
-        return time.toString();
+    @RequestMapping(value = "/day",
+            consumes = "application/json",
+            produces = "application/json",
+            method = RequestMethod.GET)
+    public List<Visit> getVisitsPerHourForDay(@RequestParam String dateTime) {
+        return visitService.getVisitsPerHourForDay(dateTime);
     }
 
     @RequestMapping("/delete-all")
@@ -42,8 +27,13 @@ public class VisitController {
         visitService.deleteAllVisits();
     }
 
-    @PostMapping("/save-visits")
+    @RequestMapping("/save-visits")
     public void incrementVisitCounter(@RequestBody VisitCounterRequestItem visitCounterRequestItem) {
 
+    }
+
+    @RequestMapping("/test")
+    public void addTestData() {
+        visitService.prepareDataBaseForTest();
     }
 }
