@@ -1,13 +1,15 @@
 package com.ai164.motionsensor.service;
 
+import com.ai164.motionsensor.dto.VisitRequestItem;
+import com.ai164.motionsensor.dto.VisitResponseItem;
 import com.ai164.motionsensor.model.Visit;
 import com.ai164.motionsensor.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,14 +18,12 @@ public class VisitServiceImpl implements VisitService {
     @Autowired
     private VisitRepository visitRepository;
 
-    private static String DATE_PATTERN = "yyyy/MM/dd HH";
+    private static String DATE_TIME_PATTERN = "yyyy/MM/dd&HH";
+    private static String DAY_PATTERN = "yyyy/MM/dd";
 
     @Override
     public void prepareDataBaseForTest() {
-        visitRepository.save(new Visit(LocalDateTime.now(), 4));
-        visitRepository.save(new Visit(LocalDateTime.now(ZoneId.of("EET")), 15));
-        visitRepository.save(new Visit(LocalDateTime.now(ZoneId.of("EST")), 235));
-        visitRepository.save(new Visit(LocalDateTime.now(), 15));
+
     }
 
     @Override
@@ -37,8 +37,44 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<Visit> getVisitsPerHourForDay(String dateTime) {
-        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(DATE_PATTERN));
-        return visitRepository.getVisitsByTime_Date(localDateTime.toLocalDate());
+    public List<VisitResponseItem> findVisitsPerHourForDay(String date) {
+        LocalDateTime time = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(DAY_PATTERN));
+        List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(time.getYear(), time.getMonthValue(), time.getDayOfMonth());
+
+        List<VisitResponseItem> visitResponseItems = new ArrayList<>();
+
+        for (Visit visit : visits) {
+            visitResponseItems.add(VisitResponseItem.newBuilder()
+                    .setYear(visit.getYear())
+                    .setMonth(visit.getMonth())
+                    .setDay(visit.getDay())
+                    .setHour(visit.getHour())
+                    .setVisitCounter(visit.getVisitCounter())
+                    .build());
+        }
+
+        return visitResponseItems;
+    }
+
+    @Override
+    public void saveVisit(VisitRequestItem visitRequestItem) {
+        LocalDateTime time = LocalDateTime.parse(visitRequestItem.getDateTime(), DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+        Visit visit = visitRepository.findVisitByYearAndMonthAndDayAndHour(time.getYear(),
+                time.getMonthValue(),
+                time.getDayOfMonth(),
+                time.getHour());
+
+        if (visit == null) {
+            visitRepository.save(Visit.newBuilder()
+                    .setYear(time.getYear())
+                    .setMonth(time.getMonthValue())
+                    .setDay(time.getDayOfMonth())
+                    .setHour(time.getHour())
+                    .setVisitCounter(visitRequestItem.getVisitCounter())
+                    .build());
+        } else {
+            visit.setVisitCounter(visitRequestItem.getVisitCounter());
+            visitRepository.save(visit);
+        }
     }
 }
