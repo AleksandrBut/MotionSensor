@@ -1,8 +1,8 @@
 package com.ai164.motionsensor.controller;
 
 import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
-import com.ai164.motionsensor.dto.VisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
+import com.ai164.motionsensor.dto.VisitRequestItem;
 import com.ai164.motionsensor.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,9 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
-    @RequestMapping(value = "/day-stat", method = RequestMethod.GET)
+    @RequestMapping(value = "/day-stat",
+            produces = "application/json",
+            method = RequestMethod.GET)
     public List<VisitPerHourResponseItem> findVisitsPerHourForDay(@RequestParam int year,
                                                                   @RequestParam int month,
                                                                   @RequestParam int day) {
@@ -27,7 +29,9 @@ public class VisitController {
         visitService.deleteAllVisits();
     }
 
-    @RequestMapping(value = "/save-visit", method = RequestMethod.POST)
+    @RequestMapping(value = "/save-visit",
+            consumes = "application/json",
+            method = RequestMethod.POST)
     public void saveVisit(@RequestBody VisitRequestItem visitRequestItem) {
         visitService.saveVisit(visitRequestItem);
     }
@@ -37,7 +41,9 @@ public class VisitController {
         visitService.prepareDataBaseForTest();
     }
 
-    @RequestMapping(value = "/week-stat", method = RequestMethod.GET)
+    @RequestMapping(value = "/week-stat",
+            produces = "application/json",
+            method = RequestMethod.GET)
     List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(@RequestParam int year,
                                                                     @RequestParam int month,
                                                                     @RequestParam int day) {
