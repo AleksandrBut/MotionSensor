@@ -1,6 +1,6 @@
 package com.ai164.motionsensor.dto;
 
-public class VisitRequestItem {
+public class VisitPerHourRequestItem {
 
     private int year;
     private int month;
@@ -8,7 +8,7 @@ public class VisitRequestItem {
     private int hour;
     private int visitCounter;
 
-    public VisitRequestItem(int year, int month, int day, int hour, int visitCounter) {
+    public VisitPerHourRequestItem(int year, int month, int day, int hour, int visitCounter) {
         this.year = year;
         this.month = month;
         this.day = day;

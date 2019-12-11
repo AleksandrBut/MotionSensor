@@ -2,7 +2,7 @@ package com.ai164.motionsensor.dto;
 
 import java.util.Objects;
 
-public class VisitResponseItem {
+public class VisitPerHourResponseItem {
 
     private int year;
     private int month;
@@ -10,7 +10,7 @@ public class VisitResponseItem {
     private int hour;
     private int visitCounter;
 
-    private VisitResponseItem() {
+    private VisitPerHourResponseItem() {
     }
 
     public int getYear() {
@@ -57,7 +57,7 @@ public class VisitResponseItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VisitResponseItem that = (VisitResponseItem) o;
+        VisitPerHourResponseItem that = (VisitPerHourResponseItem) o;
         return year == that.year &&
                 month == that.month &&
                 day == that.day &&
@@ -71,7 +71,7 @@ public class VisitResponseItem {
     }
 
     public static Builder newBuilder() {
-        return new VisitResponseItem().new Builder();
+        return new VisitPerHourResponseItem().new Builder();
     }
 
     public class Builder {
@@ -80,32 +80,32 @@ public class VisitResponseItem {
         }
 
         public Builder setYear(int year) {
-            VisitResponseItem.this.year = year;
+            VisitPerHourResponseItem.this.year = year;
             return this;
         }
 
         public Builder setMonth(int month) {
-            VisitResponseItem.this.month = month;
+            VisitPerHourResponseItem.this.month = month;
             return this;
         }
 
         public Builder setDay(int day) {
-            VisitResponseItem.this.day = day;
+            VisitPerHourResponseItem.this.day = day;
             return this;
         }
 
         public Builder setHour(int hour) {
-            VisitResponseItem.this.hour = hour;
+            VisitPerHourResponseItem.this.hour = hour;
             return this;
         }
 
         public Builder setVisitCounter(int visitCounter) {
-            VisitResponseItem.this.visitCounter = visitCounter;
+            VisitPerHourResponseItem.this.visitCounter = visitCounter;
             return this;
         }
 
-        public VisitResponseItem build() {
-            return VisitResponseItem.this;
+        public VisitPerHourResponseItem build() {
+            return VisitPerHourResponseItem.this;
         }
     }
 }

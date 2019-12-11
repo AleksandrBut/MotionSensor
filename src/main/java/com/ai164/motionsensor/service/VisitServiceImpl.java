@@ -1,7 +1,7 @@
 package com.ai164.motionsensor.service;
 
-import com.ai164.motionsensor.dto.VisitRequestItem;
-import com.ai164.motionsensor.dto.VisitResponseItem;
+import com.ai164.motionsensor.dto.VisitPerHourRequestItem;
+import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
 import com.ai164.motionsensor.model.Visit;
 import com.ai164.motionsensor.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,12 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<VisitResponseItem> findVisitsPerHourForDay(int year, int month, int day) {
+    public List<VisitPerHourResponseItem> findVisitsPerHourForDay(int year, int month, int day) {
         List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(year, month, day);
-        List<VisitResponseItem> visitResponseItems = new ArrayList<>();
+        List<VisitPerHourResponseItem> visitPerHourResponseItems = new ArrayList<>();
 
         for (Visit visit : visits) {
-            visitResponseItems.add(VisitResponseItem.newBuilder()
+            visitPerHourResponseItems.add(VisitPerHourResponseItem.newBuilder()
                     .setYear(visit.getYear())
                     .setMonth(visit.getMonth())
                     .setDay(visit.getDay())
@@ -46,26 +46,26 @@ public class VisitServiceImpl implements VisitService {
                     .build());
         }
 
-        return visitResponseItems;
+        return visitPerHourResponseItems;
     }
 
     @Override
-    public void saveVisit(VisitRequestItem visitRequestItem) {
-        Visit visit = visitRepository.findVisitByYearAndMonthAndDayAndHour(visitRequestItem.getYear(),
-                visitRequestItem.getMonth(),
-                visitRequestItem.getDay(),
-                visitRequestItem.getHour());
+    public void saveVisit(VisitPerHourRequestItem visitPerHourRequestItem) {
+        Visit visit = visitRepository.findVisitByYearAndMonthAndDayAndHour(visitPerHourRequestItem.getYear(),
+                visitPerHourRequestItem.getMonth(),
+                visitPerHourRequestItem.getDay(),
+                visitPerHourRequestItem.getHour());
 
         if (visit == null) {
             visitRepository.save(Visit.newBuilder()
-                    .setYear(visitRequestItem.getYear())
-                    .setMonth(visitRequestItem.getMonth())
-                    .setDay(visitRequestItem.getDay())
-                    .setHour(visitRequestItem.getHour())
-                    .setVisitCounter(visitRequestItem.getVisitCounter())
+                    .setYear(visitPerHourRequestItem.getYear())
+                    .setMonth(visitPerHourRequestItem.getMonth())
+                    .setDay(visitPerHourRequestItem.getDay())
+                    .setHour(visitPerHourRequestItem.getHour())
+                    .setVisitCounter(visitPerHourRequestItem.getVisitCounter())
                     .build());
         } else {
-            visit.setVisitCounter(visitRequestItem.getVisitCounter());
+            visit.setVisitCounter(visitPerHourRequestItem.getVisitCounter());
             visitRepository.save(visit);
         }
     }
