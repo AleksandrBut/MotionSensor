@@ -18,7 +18,7 @@ public class VisitServiceImpl implements VisitService {
     @Autowired
     private VisitRepository visitRepository;
 
-    private static String DATE_TIME_PATTERN = "yyyy/MM/dd_HH";
+    private static String DATE_TIME_PATTERN = "uuuu/MM/dd_HH";
     private static String DAY_PATTERN = "uuuu/MM/dd";
 
     @Override
