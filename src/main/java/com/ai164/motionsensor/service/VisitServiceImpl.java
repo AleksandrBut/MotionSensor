@@ -19,7 +19,7 @@ public class VisitServiceImpl implements VisitService {
     private VisitRepository visitRepository;
 
     private static String DATE_TIME_PATTERN = "yyyy/MM/dd_HH";
-    private static String DAY_PATTERN = "yyyy/MM/dd";
+    private static String DAY_PATTERN = "uuuu/MM/dd";
 
     @Override
     public void prepareDataBaseForTest() {
