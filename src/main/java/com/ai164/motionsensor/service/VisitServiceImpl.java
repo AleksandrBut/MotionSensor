@@ -77,12 +77,12 @@ public class VisitServiceImpl implements VisitService {
     public List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(int year, int month, int day) {
         LocalDateTime time = LocalDateTime.of(year, month, day, 0, 0);
         int daysInWeek = 7;
-        time.minus(daysInWeek + 1, ChronoUnit.DAYS);
 
+        time = time.minus(daysInWeek, ChronoUnit.DAYS);
         List<VisitPerDayResponseItem> visitPerDayResponseItems = new ArrayList<>(daysInWeek);
 
         for (int i = 0; i < daysInWeek; i++) {
-            time.plus(1, ChronoUnit.DAYS);
+            time = time.plus(1, ChronoUnit.DAYS);
 
             List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(time.getYear(),
                     time.getMonthValue(),
