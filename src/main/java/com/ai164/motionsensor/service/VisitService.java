@@ -13,7 +13,7 @@ public interface VisitService {
 
     void deleteAllVisits();
 
-    List<VisitResponseItem> findVisitsPerHourForDay(String date);
+    List<VisitResponseItem> findVisitsPerHourForDay(int year, int month, int date);
 
     void saveVisit(VisitRequestItem visitRequestItem);
 }

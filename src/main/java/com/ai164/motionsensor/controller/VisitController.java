@@ -15,8 +15,10 @@ public class VisitController {
     private VisitService visitService;
 
     @RequestMapping(value = "/day-stat", method = RequestMethod.GET)
-    public List<VisitResponseItem> findVisitsPerHourForDay(@RequestParam String date) {
-        return visitService.findVisitsPerHourForDay(date);
+    public List<VisitResponseItem> findVisitsPerHourForDay(@RequestParam int year,
+                                                           @RequestParam int month,
+                                                           @RequestParam int day) {
+        return visitService.findVisitsPerHourForDay(year, month, day);
     }
 
     @RequestMapping("/delete-all")

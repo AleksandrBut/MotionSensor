@@ -7,8 +7,6 @@ import com.ai164.motionsensor.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +15,6 @@ public class VisitServiceImpl implements VisitService {
 
     @Autowired
     private VisitRepository visitRepository;
-
-    private static String DATE_TIME_PATTERN = "yyyy-MM-dd_HH";
-    private static String DAY_PATTERN = "yyyy-MM-dd";
 
     @Override
     public void prepareDataBaseForTest() {
@@ -37,10 +32,8 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public List<VisitResponseItem> findVisitsPerHourForDay(String date) {
-        LocalDateTime time = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(DAY_PATTERN));
-        List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(time.getYear(), time.getMonthValue(), time.getDayOfMonth());
-
+    public List<VisitResponseItem> findVisitsPerHourForDay(int year, int month, int day) {
+        List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(year, month, day);
         List<VisitResponseItem> visitResponseItems = new ArrayList<>();
 
         for (Visit visit : visits) {
@@ -58,18 +51,17 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public void saveVisit(VisitRequestItem visitRequestItem) {
-        LocalDateTime time = LocalDateTime.parse(visitRequestItem.getDateTime(), DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
-        Visit visit = visitRepository.findVisitByYearAndMonthAndDayAndHour(time.getYear(),
-                time.getMonthValue(),
-                time.getDayOfMonth(),
-                time.getHour());
+        Visit visit = visitRepository.findVisitByYearAndMonthAndDayAndHour(visitRequestItem.getYear(),
+                visitRequestItem.getMonth(),
+                visitRequestItem.getDay(),
+                visitRequestItem.getHour());
 
         if (visit == null) {
             visitRepository.save(Visit.newBuilder()
-                    .setYear(time.getYear())
-                    .setMonth(time.getMonthValue())
-                    .setDay(time.getDayOfMonth())
-                    .setHour(time.getHour())
+                    .setYear(visitRequestItem.getYear())
+                    .setMonth(visitRequestItem.getMonth())
+                    .setDay(visitRequestItem.getDay())
+                    .setHour(visitRequestItem.getHour())
                     .setVisitCounter(visitRequestItem.getVisitCounter())
                     .build());
         } else {
