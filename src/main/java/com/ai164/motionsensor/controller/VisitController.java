@@ -34,7 +34,7 @@ public class VisitController {
         System.out.println("time.getMinute() = " + localDateTime.getMinute());
 
         visitService.prepareDataBaseForTest();
-        return visitService.getAllVisits().toString();
+        return time.toString();
     }
 
     @RequestMapping("/delete-all")
