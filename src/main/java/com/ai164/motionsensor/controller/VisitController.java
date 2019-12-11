@@ -14,10 +14,7 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
-    @RequestMapping(value = "/day-stat",
-            consumes = "application/json",
-            produces = "application/json",
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/day-stat", method = RequestMethod.GET)
     public List<VisitResponseItem> findVisitsPerHourForDay(@RequestParam String date) {
         return visitService.findVisitsPerHourForDay(date);
     }
@@ -27,9 +24,7 @@ public class VisitController {
         visitService.deleteAllVisits();
     }
 
-    @RequestMapping(value = "/save-visit",
-            consumes = "application/json",
-            method = RequestMethod.POST)
+    @RequestMapping(value = "/save-visit", method = RequestMethod.POST)
     public void saveVisit(@RequestBody VisitRequestItem visitRequestItem) {
         visitService.saveVisit(visitRequestItem);
     }
