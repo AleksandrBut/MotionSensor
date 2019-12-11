@@ -25,7 +25,7 @@ public class VisitController {
     public String event() {
         LocalDateTime time = LocalDateTime.now(ZoneId.of("EET"));
 
-        LocalDateTime localDateTime = LocalDateTime.parse("12/11/2012:13", DateTimeFormatter.ofPattern("dd/mm/yyyy:HH"));
+        LocalDateTime localDateTime = LocalDateTime.parse("2019-03-18 13", DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));
 
         System.out.println("time.getYear() = " + localDateTime.getYear());
         System.out.println("time.getMonth() = " + localDateTime.getMonthValue());
