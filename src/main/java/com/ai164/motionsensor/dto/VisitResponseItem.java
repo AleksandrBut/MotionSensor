@@ -3,6 +3,7 @@ package com.ai164.motionsensor.dto;
 import java.util.Objects;
 
 public class VisitResponseItem {
+
     private int year;
     private int month;
     private int day;

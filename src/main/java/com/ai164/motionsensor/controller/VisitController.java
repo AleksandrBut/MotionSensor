@@ -14,7 +14,7 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
-    @RequestMapping(value = "/day",
+    @RequestMapping(value = "/day-stat",
             consumes = "application/json",
             produces = "application/json",
             method = RequestMethod.GET)
