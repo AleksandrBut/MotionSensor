@@ -1,6 +1,7 @@
 package com.ai164.motionsensor.service;
 
-import com.ai164.motionsensor.dto.VisitPerHourRequestItem;
+import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
+import com.ai164.motionsensor.dto.VisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
 import com.ai164.motionsensor.model.Visit;
 
@@ -15,5 +16,7 @@ public interface VisitService {
 
     List<VisitPerHourResponseItem> findVisitsPerHourForDay(int year, int month, int date);
 
-    void saveVisit(VisitPerHourRequestItem visitPerHourRequestItem);
+    void saveVisit(VisitRequestItem visitRequestItem);
+
+    List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(int year, int month, int day);
 }

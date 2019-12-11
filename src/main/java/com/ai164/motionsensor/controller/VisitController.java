@@ -1,6 +1,7 @@
 package com.ai164.motionsensor.controller;
 
-import com.ai164.motionsensor.dto.VisitPerHourRequestItem;
+import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
+import com.ai164.motionsensor.dto.VisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
 import com.ai164.motionsensor.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class VisitController {
     }
 
     @RequestMapping(value = "/save-visit", method = RequestMethod.POST)
-    public void saveVisit(@RequestBody VisitPerHourRequestItem visitPerHourRequestItem) {
-        visitService.saveVisit(visitPerHourRequestItem);
+    public void saveVisit(@RequestBody VisitRequestItem visitRequestItem) {
+        visitService.saveVisit(visitRequestItem);
     }
 
     @RequestMapping("/test")
@@ -36,4 +37,10 @@ public class VisitController {
         visitService.prepareDataBaseForTest();
     }
 
+    @RequestMapping(value = "/week-stat", method = RequestMethod.GET)
+    List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(@RequestParam int year,
+                                                                    @RequestParam int month,
+                                                                    @RequestParam int day) {
+        return visitService.findVisitsPerDayForWeekBeforeDate(year, month, day);
+    }
 }
