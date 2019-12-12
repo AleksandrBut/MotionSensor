@@ -1,5 +1,6 @@
 package com.ai164.motionsensor.service;
 
+import com.ai164.motionsensor.dto.DeleteVisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
 import com.ai164.motionsensor.dto.VisitRequestItem;
@@ -30,8 +31,11 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public void deleteAllVisits() {
-        visitRepository.deleteAll();
+    public void deleteVisit(DeleteVisitRequestItem deleteVisitRequestItem) {
+        visitRepository.deleteByYearAndMonthAndDayAndHour(deleteVisitRequestItem.getYear(),
+                deleteVisitRequestItem.getMonth(),
+                deleteVisitRequestItem.getDay(),
+                deleteVisitRequestItem.getHour());
     }
 
     @Override

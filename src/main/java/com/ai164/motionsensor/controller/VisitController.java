@@ -1,5 +1,6 @@
 package com.ai164.motionsensor.controller;
 
+import com.ai164.motionsensor.dto.DeleteVisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
 import com.ai164.motionsensor.dto.VisitRequestItem;
@@ -34,9 +35,11 @@ public class VisitController {
         return visitService.findVisitsPerDayForWeekBeforeDate(year, month, day);
     }
 
-    @RequestMapping("/delete-all")
-    public void deleteAllVisits() {
-        visitService.deleteAllVisits();
+    @RequestMapping(value = "/week-stat",
+            consumes = "application/json",
+            method = RequestMethod.DELETE)
+    public void deleteVisit(@RequestBody DeleteVisitRequestItem deleteVisitRequestItem) {
+        visitService.deleteVisit(deleteVisitRequestItem);
     }
 
     @RequestMapping(value = "/save-visit",

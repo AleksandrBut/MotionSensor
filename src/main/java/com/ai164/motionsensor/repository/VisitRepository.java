@@ -9,4 +9,6 @@ public interface VisitRepository extends CrudRepository<Visit, Long> {
     Visit findVisitByYearAndMonthAndDayAndHour(int year, int month, int day, int hour);
 
     List<Visit> findVisitsByYearAndMonthAndDay(int year, int month, int day);
+
+    void deleteByYearAndMonthAndDayAndHour(int year, int month, int day, int hour);
 }

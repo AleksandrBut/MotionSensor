@@ -1,5 +1,6 @@
 package com.ai164.motionsensor.service;
 
+import com.ai164.motionsensor.dto.DeleteVisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerDayResponseItem;
 import com.ai164.motionsensor.dto.VisitRequestItem;
 import com.ai164.motionsensor.dto.VisitPerHourResponseItem;
@@ -12,7 +13,7 @@ public interface VisitService {
 
     List<Visit> getAllVisits();
 
-    void deleteAllVisits();
+    void deleteVisit(DeleteVisitRequestItem deleteVisitRequestItem);
 
     List<VisitPerHourResponseItem> findVisitsPerHourForDay(int year, int month, int date);
 
