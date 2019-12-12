@@ -25,6 +25,15 @@ public class VisitController {
         return visitService.findVisitsPerHourForDay(year, month, day);
     }
 
+    @RequestMapping(value = "/week-stat",
+            produces = "application/json",
+            method = RequestMethod.GET)
+    List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(@RequestParam int year,
+                                                                    @RequestParam int month,
+                                                                    @RequestParam int day) {
+        return visitService.findVisitsPerDayForWeekBeforeDate(year, month, day);
+    }
+
     @RequestMapping("/delete-all")
     public void deleteAllVisits() {
         visitService.deleteAllVisits();
@@ -40,14 +49,5 @@ public class VisitController {
     @RequestMapping("/test")
     public void addTestData() {
         visitService.prepareDataBaseForTest();
-    }
-
-    @RequestMapping(value = "/week-stat",
-            produces = "application/json",
-            method = RequestMethod.GET)
-    List<VisitPerDayResponseItem> findVisitsPerDayForWeekBeforeDate(@RequestParam int year,
-                                                                    @RequestParam int month,
-                                                                    @RequestParam int day) {
-        return visitService.findVisitsPerDayForWeekBeforeDate(year, month, day);
     }
 }

@@ -37,16 +37,23 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public List<VisitPerHourResponseItem> findVisitsPerHourForDay(int year, int month, int day) {
         List<Visit> visits = visitRepository.findVisitsByYearAndMonthAndDay(year, month, day);
-        List<VisitPerHourResponseItem> visitPerHourResponseItems = new ArrayList<>();
+        List<VisitPerHourResponseItem> visitPerHourResponseItems = new ArrayList<>(24);
+
+        int hoursInDay = 24;
+
+        for (int i = 0; i < hoursInDay; i++) {
+            visitPerHourResponseItems.add(VisitPerHourResponseItem.newBuilder()
+                    .setYear(year)
+                    .setMonth(month)
+                    .setDay(day)
+                    .setHour(i)
+                    .build());
+        }
 
         for (Visit visit : visits) {
-            visitPerHourResponseItems.add(VisitPerHourResponseItem.newBuilder()
-                    .setYear(visit.getYear())
-                    .setMonth(visit.getMonth())
-                    .setDay(visit.getDay())
-                    .setHour(visit.getHour())
-                    .setVisitCounter(visit.getVisitCounter())
-                    .build());
+            VisitPerHourResponseItem responseItem = visitPerHourResponseItems.get(visit.getHour());
+            responseItem.setVisitCounter(visit.getVisitCounter());
+            visitPerHourResponseItems.set(visit.getHour(), responseItem);
         }
 
         return visitPerHourResponseItems;
