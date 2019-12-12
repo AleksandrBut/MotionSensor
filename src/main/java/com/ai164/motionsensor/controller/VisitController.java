@@ -35,7 +35,7 @@ public class VisitController {
         return visitService.findVisitsPerDayForWeekBeforeDate(year, month, day);
     }
 
-    @RequestMapping(value = "/week-stat",
+    @RequestMapping(value = "/delete-visit",
             consumes = "application/json",
             method = RequestMethod.DELETE)
     public void deleteVisit(@RequestBody DeleteVisitRequestItem deleteVisitRequestItem) {
